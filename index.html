@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,64 +39,52 @@
 
     <style>
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #111; 
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FACC15; 
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #111; }
+        ::-webkit-scrollbar-thumb:hover { background: #FACC15; }
 
         /* Utility for images */
-        .image-hover-zoom {
-            overflow: hidden;
-        }
-        .image-hover-zoom img {
-            transition: transform 0.5s ease;
-        }
-        .image-hover-zoom:hover img {
-            transform: scale(1.1);
-        }
+        .image-hover-zoom { overflow: hidden; }
+        .image-hover-zoom img { transition: transform 0.5s ease; }
+        .image-hover-zoom:hover img { transform: scale(1.1); }
 
         /* Video styling */
-        video {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
+        video { object-fit: cover; width: 100%; height: 100%; }
         
-        /* Pricing Tab Active State */
-        .price-tab-active {
-            background-color: #111;
-            color: #FACC15;
-            border-color: #111;
-        }
-        .price-tab-inactive {
-            background-color: white;
-            color: #6b7280;
-            border-color: #e5e7eb;
-        }
-        .price-tab-inactive:hover {
+        /* --- STYLES KHUSUS FORM ORDER --- */
+        .form-radio:checked + div {
             border-color: #FACC15;
-            color: #111;
+            background-color: #FEFCE8;
+            color: black;
+        }
+        .form-radio:checked + div .check-icon { opacity: 1; }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; margin: 0; 
+        }
+
+        /* Toggle Button Styles */
+        .toggle-btn.active { background-color: black; color: #FACC15; }
+        .toggle-btn { background-color: #f3f4f6; color: #9ca3af; }
+
+        /* FIX: Offset Scroll untuk Navbar Fixed */
+        html {
+            scroll-padding-top: 5rem; /* Sesuaikan dengan tinggi navbar (h-20 = 5rem) */
         }
     </style>
 </head>
-<body class="bg-white text-slate-800 antialiased overflow-x-hidden">
+<body class="bg-white text-slate-800 antialiased overflow-x-hidden w-full relative">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100 top-0 left-0 right-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
                     <div class="w-10 h-10 bg-primary flex items-center justify-center font-bold text-black text-xl rounded-tr-xl rounded-bl-xl">V</div>
-                    <span class="font-bold text-2xl tracking-tighter text-black">VERTICAL<span class="text-primary">COLONY</span></span>
+                    <span class="font-bold text-xl md:text-2xl tracking-tighter text-black">VERTICAL<span class="text-primary">COLONY</span></span>
                 </div>
 
                 <!-- Desktop Menu -->
@@ -113,28 +101,27 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-black hover:text-primary focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-black hover:text-primary focus:outline-none p-2">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
-            <div class="px-4 pt-2 pb-6 space-y-2 shadow-xl">
-                <a href="#process" class="block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md">Proses</a>
-                <a href="#materials" class="block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md">Bahan</a>
-                <a href="#portfolio" class="block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md">Hasil</a>
-                <a href="#location" class="block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md">Lokasi</a>
-                <a href="#pricing" class="block px-3 py-3 mt-4 text-center font-bold bg-primary text-black rounded-md">PESAN SEKARANG</a>
+        <!-- Mobile Menu Panel (Updated for Smooth Closing) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl transition-all duration-300 ease-in-out">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#process" class="mobile-link block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md border-b border-gray-50">Proses</a>
+                <a href="#materials" class="mobile-link block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md border-b border-gray-50">Bahan</a>
+                <a href="#portfolio" class="mobile-link block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md border-b border-gray-50">Hasil</a>
+                <a href="#location" class="mobile-link block px-3 py-3 text-base font-semibold hover:bg-gray-50 hover:text-primary rounded-md border-b border-gray-50">Lokasi</a>
+                <a href="#pricing" class="mobile-link block px-3 py-3 mt-4 text-center font-bold bg-primary text-black rounded-md shadow-md active:scale-95 transition-transform">PESAN SEKARANG</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Fashion Workshop" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent"></div>
@@ -143,18 +130,19 @@
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="max-w-3xl" data-aos="fade-right" data-aos-duration="1000">
                 <div class="inline-block px-4 py-1 bg-black text-white text-xs font-bold tracking-widest mb-4">EST. 2024</div>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-black leading-tight mb-6">
+                <!-- Responsive Font Size Adjustment -->
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-black leading-tight mb-6">
                     Wujudkan Desain <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-300">Impianmu.</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-700 mb-8 max-w-lg font-medium">
-                    Spesialis pembuatan Jersey Printing & Pakaian Custom. Menggunakan mesin Epson SureColor F6330 Original untuk hasil warna tajam dan tahan lama.
+                <p class="text-base sm:text-lg md:text-xl text-slate-700 mb-8 max-w-lg font-medium leading-relaxed">
+                    Spesialis pembuatan Jersey Printing & Pakaian Custom. Menggunakan mesin Epson SureColor F6330 Original.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#portfolio" class="px-8 py-4 bg-black text-white font-bold hover:bg-gray-800 transition-all text-center">
+                    <a href="#portfolio" class="px-8 py-4 bg-black text-white font-bold hover:bg-gray-800 transition-all text-center rounded-lg sm:rounded-none">
                         LIHAT HASIL KARYA
                     </a>
-                    <a href="#pricing" class="px-8 py-4 bg-primary text-black font-bold hover:bg-primaryDark transition-all text-center flex items-center justify-center gap-2">
+                    <a href="#pricing" class="px-8 py-4 bg-primary text-black font-bold hover:bg-primaryDark transition-all text-center flex items-center justify-center gap-2 rounded-lg sm:rounded-none">
                         <span>MULAI PROJECT</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -162,16 +150,15 @@
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
             <i class="fa-solid fa-chevron-down text-2xl text-black"></i>
         </div>
     </header>
 
-    <!-- Process Section (Structured & Visual) -->
-    <section id="process" class="py-24 bg-gray-50">
+    <!-- Process Section -->
+    <section id="process" class="py-20 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
+            <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
                 <h2 class="text-sm font-bold text-primary tracking-widest uppercase mb-2">Dapur Produksi</h2>
                 <h3 class="text-3xl md:text-4xl font-bold text-black">Proses Pengerjaan Kami</h3>
                 <div class="w-24 h-1 bg-primary mx-auto mt-4"></div>
@@ -191,77 +178,57 @@
                         <div class="flex-shrink-0 w-12 h-12 bg-primary text-black flex items-center justify-center font-bold text-xl rounded-full">2</div>
                         <div>
                             <h4 class="text-xl font-bold text-black mb-2">Printing & Press</h4>
-                            <p class="text-slate-600">Proses printing sublimasi menggunakan Tinta Original Epson untuk warna yang hidup.</p>
+                            <p class="text-slate-600">Proses printing sublimasi menggunakan Tinta Original Epson.</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
                         <div class="flex-shrink-0 w-12 h-12 bg-white border-2 border-black text-black flex items-center justify-center font-bold text-xl rounded-full">3</div>
                         <div>
                             <h4 class="text-xl font-bold text-black mb-2">Jahit & Finishing</h4>
-                            <p class="text-slate-600">Dijahit rapi, pengecekan kualitas (QC), dan siap dikirim dalam estimasi 7 hari kerja.</p>
+                            <p class="text-slate-600">Dijahit rapi, pengecekan kualitas (QC), dan siap dikirim.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Visual Gallery (Video/Photo Grid) -->
-                <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
-                    <div class="space-y-4 mt-8">
-                        <!-- Static Image (Foto Desain) -->
-                        <div class="image-hover-zoom rounded-lg overflow-hidden h-48 group relative cursor-pointer shadow-lg">
+                <!-- Visual Gallery -->
+                <div class="grid grid-cols-2 gap-3 md:gap-4" data-aos="fade-left">
+                    <div class="space-y-3 md:space-y-4 mt-8">
+                        <div class="image-hover-zoom rounded-lg overflow-hidden h-32 sm:h-48 group relative cursor-pointer shadow-lg">
                             <img src="proses2.jpg" class="w-full h-full object-cover" alt="Desain">
-                            <div class="absolute bottom-2 left-2 text-white text-xs font-bold bg-black/50 px-2 py-1">FOTO DESAIN</div>
+                            <div class="absolute bottom-2 left-2 text-white text-[10px] md:text-xs font-bold bg-black/50 px-2 py-1">FOTO DESAIN</div>
                         </div>
                         
-                        <!-- Video Proses 1 (Playable - MENJAHIT) -->
-                        <div class="rounded-lg overflow-hidden h-64 shadow-lg bg-black relative">
-                            <!-- Video Element -->
+                        <div class="rounded-lg overflow-hidden h-48 sm:h-64 shadow-lg bg-black relative">
                             <video autoplay loop muted playsinline id="video-proses-3" class="w-full h-full object-cover rounded-lg video-portrait">
                                 <source src="proses3.mp4" type="video/mp4">
-                                Browser Anda tidak mendukung video tag.
                             </video>
-                            
-                            <!-- Overlay Control (Play/Pause) -->
                             <div id="control-video-proses-3" class="video-overlay absolute inset-0 flex items-center justify-center cursor-pointer group z-10">
                                 <i id="icon-proses-3" class="fa-solid fa-pause text-white text-3xl opacity-0 transition-opacity duration-300"></i>
                             </div>
-
-                            <!-- Mute Button -->
                             <button id="mute-proses-3" class="absolute bottom-4 left-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-black/80 transition-colors">
                                 <i class="fa-solid fa-volume-xmark"></i>
                             </button>
-
-                            <!-- Label -->
-                            <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">PROSES MENJAHIT</div>
+                            <div class="absolute top-2 right-2 text-white text-[10px] md:text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">MENJAHIT</div>
                         </div>
                     </div>
                     
-                    <div class="space-y-4">
-                        <!-- Video Proses 2 (Playable - PRINTING) -->
-                        <div class="rounded-lg overflow-hidden h-64 shadow-lg bg-black relative">
-                            <!-- Video Element -->
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="rounded-lg overflow-hidden h-48 sm:h-64 shadow-lg bg-black relative">
                             <video autoplay loop muted playsinline id="video-proses-4" class="w-full h-full object-cover rounded-lg video-portrait">
                                 <source src="proses 4.mp4" type="video/mp4">
-                                Browser Anda tidak mendukung video tag.
                             </video>
-
-                            <!-- Overlay Control (Play/Pause) -->
                             <div id="control-video-proses-4" class="video-overlay absolute inset-0 flex items-center justify-center cursor-pointer group z-10">
                                 <i id="icon-proses-4" class="fa-solid fa-pause text-white text-3xl opacity-0 transition-opacity duration-300"></i>
                             </div>
-
-                            <!-- Mute Button -->
                             <button id="mute-proses-4" class="absolute bottom-4 left-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-black/80 transition-colors">
                                 <i class="fa-solid fa-volume-xmark"></i>
                             </button>
-
-                            <!-- Label -->
-                            <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">PROSES PRINTING</div>
+                            <div class="absolute top-2 right-2 text-white text-[10px] md:text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">PRINTING</div>
                         </div>
                         
-                        <!-- Static Image (Foto Finishing) -->
-                        <div class="image-hover-zoom rounded-lg overflow-hidden h-48 group relative cursor-pointer shadow-lg">
+                        <div class="image-hover-zoom rounded-lg overflow-hidden h-32 sm:h-48 group relative cursor-pointer shadow-lg">
                             <img src="baju2.jpg" class="w-full h-full object-cover" alt="Finishing">
-                             <div class="absolute bottom-2 left-2 text-white text-xs font-bold bg-black/50 px-2 py-1">FOTO FINISHING</div>
+                             <div class="absolute bottom-2 left-2 text-white text-[10px] md:text-xs font-bold bg-black/50 px-2 py-1">FOTO FINISHING</div>
                         </div>
                     </div>
                 </div>
@@ -269,9 +236,8 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: Materials & Technology -->
-    <section id="materials" class="py-24 bg-white relative overflow-hidden">
-        <!-- Background Element -->
+    <!-- Materials Section -->
+    <section id="materials" class="py-20 md:py-24 bg-white relative overflow-hidden">
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-yellow-50 rounded-full blur-3xl opacity-50 z-0"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -281,42 +247,31 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
-                <!-- Left: Materials Catalog Card -->
+                <!-- Left: Materials -->
                 <div data-aos="fade-right" class="flex flex-col justify-center">
                     <h4 class="text-2xl font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-layer-group text-primary mr-3"></i> Pilihan Kain Dry-Fit
                     </h4>
                     <p class="text-gray-500 mb-8 leading-relaxed">
-                        Kami menyediakan berbagai jenis bahan premium yang nyaman, menyerap keringat, dan memiliki tekstur unik sesuai kebutuhan olahraga Anda.
+                        Kami menyediakan berbagai jenis bahan premium yang nyaman, menyerap keringat, dan memiliki tekstur unik.
                     </p>
-                    
-                    <!-- REFINED IMAGE CARD (Frame Effect) -->
                     <div class="bg-white p-3 rounded-[2rem] shadow-2xl border border-gray-100 transform transition-all duration-500 hover:-translate-y-2 group cursor-pointer">
                         <div class="relative overflow-hidden rounded-[1.5rem]">
-                            <img src="bahan.jpg" alt="Katalog Bahan Jersey Dry-Fit" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
-                            
-                            <!-- Minimalist Overlay Tag -->
+                            <img src="bahan.jpg" alt="Katalog Bahan" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold tracking-widest shadow-sm">
                                 • KATALOG 2025
                             </div>
                         </div>
-                        <!-- Micro Detail Footer -->
                         <div class="mt-4 px-2 mb-2 flex justify-between items-center opacity-60">
                             <span class="text-xs font-mono text-gray-500"><i class="fa-solid fa-check-circle text-primary mr-1"></i> 6 TEXTURE TYPES</span>
-                            <i class="fa-solid fa-arrow-right text-xs -rotate-45 group-hover:rotate-0 transition-transform duration-300"></i>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Machine Specs Card -->
-                <div class="bg-black text-white rounded-[2rem] p-10 relative overflow-hidden shadow-2xl flex flex-col justify-center h-full" data-aos="fade-left">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 transform rotate-12">
-                        <i class="fa-solid fa-print text-9xl"></i>
-                    </div>
-                    
+                <!-- Right: Specs -->
+                <div class="bg-black text-white rounded-[2rem] p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col justify-center h-full" data-aos="fade-left">
                     <div class="relative z-10">
                         <h4 class="text-2xl font-bold mb-8 text-primary border-b border-gray-800 pb-4 inline-block">Teknologi Printing</h4>
-                        
                         <div class="space-y-8">
                             <div class="flex gap-5 items-start group">
                                 <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
@@ -324,27 +279,16 @@
                                 </div>
                                 <div>
                                     <h5 class="font-bold text-lg text-white mb-1">Epson SureColor F6330</h5>
-                                    <p class="text-gray-400 text-sm leading-relaxed">Mesin printer sublimasi kelas dunia menjamin detail presisi dan gradasi warna halus.</p>
+                                    <p class="text-gray-400 text-sm leading-relaxed">Detail presisi dan gradasi warna halus.</p>
                                 </div>
                             </div>
-
                             <div class="flex gap-5 items-start group">
                                 <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
                                     <i class="fa-solid fa-fill-drip text-primary text-sm"></i>
                                 </div>
                                 <div>
                                     <h5 class="font-bold text-lg text-white mb-1">Tinta Original Epson</h5>
-                                    <p class="text-gray-400 text-sm leading-relaxed">Warna tajam (Vivid), tahan cuci berkali-kali, dan bersertifikat Oeko-Tex (Aman di kulit).</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-5 items-start group">
-                                <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
-                                    <i class="fa-solid fa-shirt text-primary text-sm"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-lg text-white mb-1">Full Printing Area</h5>
-                                    <p class="text-gray-400 text-sm leading-relaxed">Bebas kreasikan desain pada seluruh permukaan kain (Depan, Belakang, Lengan).</p>
+                                    <p class="text-gray-400 text-sm leading-relaxed">Warna tajam (Vivid), tahan cuci berkali-kali.</p>
                                 </div>
                             </div>
                         </div>
@@ -354,359 +298,322 @@
         </div>
     </section>
 
-    <!-- Results / Portfolio Section -->
-    <section id="portfolio" class="py-24 bg-gray-50">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
                 <div>
                     <h2 class="text-sm font-bold text-primary tracking-widest uppercase mb-2">Galeri Hasil</h2>
                     <h3 class="text-3xl md:text-4xl font-bold text-black">Karya Terbaik Kami</h3>
                 </div>
-                <div class="mt-4 md:mt-0">
-                    <a href="#" class="text-black font-semibold border-b-2 border-primary hover:text-primary transition-colors pb-1">Lihat Selengkapnya <i class="fa-solid fa-arrow-right ml-2"></i></a>
-                </div>
             </div>
 
-            <!-- Structured Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Item 1 -->
-                <div class="group relative overflow-hidden h-80 lg:col-span-2 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+            <!-- Grid Responsive Adjustment -->
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="group relative overflow-hidden h-64 md:h-80 col-span-2 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
                     <img src="full print.jpg" alt="Model Yellow" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <h4 class="text-white text-xl font-bold">Jersey Custom</h4>
-                            <p class="text-yellow-400 text-sm">Full Print</p>
-                        </div>
+                        <div><h4 class="text-white text-xl font-bold">Jersey Custom</h4></div>
                     </div>
                 </div>
-                
-                <!-- Item 2 -->
-                <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <div class="group relative overflow-hidden h-64 md:h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
                     <img src="jersey2.jpg" alt="Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i class="fa-solid fa-magnifying-glass text-white text-2xl"></i>
-                    </div>
                 </div>
-
-                <!-- Item 3 (Video Look) -->
-                <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                <div class="group relative overflow-hidden h-64 md:h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                     <img src="jersey.jpg" alt="Jersey Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <h4 class="text-white text-xl font-bold">Jersey Detail</h4>
-                            <p class="text-yellow-400 text-sm">Close Up View</p>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Item 4 -->
-                <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="400">
+                <div class="group relative overflow-hidden h-64 md:h-80 lg:col-span-1 col-span-2 cursor-pointer" data-aos="fade-up" data-aos-delay="400">
                     <img src="baju2.jpg" alt="T-Shirt" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <h4 class="text-white text-lg font-bold">Custom Streetwear</h4>
-                            <p class="text-yellow-400 text-xs">Full Production</p>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Item 5 -->
-                <div class="group relative overflow-hidden h-80 lg:col-span-3 cursor-pointer" data-aos="fade-up" data-aos-delay="500">
+                <div class="group relative overflow-hidden h-64 md:h-80 lg:col-span-3 col-span-2 cursor-pointer" data-aos="fade-up" data-aos-delay="500">
                     <img src="testimoni.jpg" alt="Group Uniform" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <h4 class="text-white text-xl font-bold">Team Uniforms</h4>
-                            <p class="text-yellow-400 text-sm">Batch Production</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Achievements / Certificates -->
+    <!-- Achievements -->
     <section id="achievements" class="py-20 bg-black text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h3 class="text-3xl font-bold mb-2">Penghargaan & Sertifikasi</h3>
-                <p class="text-gray-400">Bukti komitmen kami terhadap kualitas dan profesionalisme.</p>
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold mb-2">Penghargaan</h3>
             </div>
-            
-            <div class="flex flex-wrap justify-center gap-8 items-center" data-aos="fade-up" data-aos-delay="200">
-                <!-- Certificate 1 -->
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-64 hover:border-primary transition-colors group text-center">
-                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                        <i class="fa-solid fa-award text-2xl group-hover:text-black"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Best Designer 2023</h4>
-                    <p class="text-xs text-gray-500">Fashion Week Local</p>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-40 md:w-64 text-center">
+                    <i class="fa-solid fa-award text-2xl mb-4 text-white"></i>
+                    <h4 class="font-bold text-sm md:text-lg">Best Designer</h4>
                 </div>
-
-                <!-- Certificate 2 -->
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-64 hover:border-primary transition-colors group text-center">
-                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                        <i class="fa-solid fa-certificate text-2xl group-hover:text-black"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">ISO 9001:2015</h4>
-                    <p class="text-xs text-gray-500">Quality Management</p>
-                </div>
-
-                <!-- Certificate 3 -->
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-64 hover:border-primary transition-colors group text-center">
-                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                        <i class="fa-solid fa-shirt text-2xl group-hover:text-black"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Textile Expert</h4>
-                    <p class="text-xs text-gray-500">Certified Material Handler</p>
-                </div>
-
-                <!-- Certificate 4 -->
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-64 hover:border-primary transition-colors group text-center">
-                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                        <i class="fa-solid fa-star text-2xl group-hover:text-black"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Top 10 SME</h4>
-                    <p class="text-xs text-gray-500">Business Growth Award</p>
-                </div>
-
-                <!-- Certificate 5 -->
-                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-64 hover:border-primary transition-colors group text-center">
-                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
-                        <i class="fa-solid fa-check-double text-2xl group-hover:text-black"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Zero Waste Cert</h4>
-                    <p class="text-xs text-gray-500">Eco Friendly Production</p>
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl w-40 md:w-64 text-center">
+                    <i class="fa-solid fa-certificate text-2xl mb-4 text-white"></i>
+                    <h4 class="font-bold text-sm md:text-lg">ISO 9001</h4>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Size Chart & Ordering (UPDATED WITH PRICING & RULE ORDER) -->
-    <section id="pricing" class="py-24 bg-white">
+    <!-- ORDER FORM SECTION -->
+    <section id="pricing" class="py-20 md:py-24 bg-white relative">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gray-50 -z-10 hidden lg:block"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-16">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-sm font-bold text-primary tracking-widest uppercase mb-2">Order Form</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-black">Buat Pesanan Anda</h3>
+                <p class="text-gray-500 mt-2">Pilih kategori, masukkan jumlah ukuran, dan kirim format order ke WhatsApp secara otomatis.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
                 
-                <!-- Left: Rule Order & Size Guide -->
-                <div class="lg:w-1/3" data-aos="fade-right">
-                    <h3 class="text-2xl font-bold mb-6 flex items-center">
-                        <i class="fa-solid fa-clipboard-list text-primary mr-3"></i> Aturan Pesanan
-                    </h3>
+                <!-- Left Column: THE FORM -->
+                <div class="lg:col-span-2 space-y-6 md:space-y-8" data-aos="fade-right">
                     
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-                        <!-- Rule Header -->
-                        <div class="bg-black text-white p-4">
-                             <h4 class="font-bold text-lg text-primary text-center tracking-widest uppercase">Rule Order</h4>
+                    <!-- 1. Pilih Model & Kategori Order -->
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 relative">
+                        <!-- HEADER WITH TOGGLE SWITCH -->
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b pb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">1</div>
+                                <h4 class="text-xl font-bold text-black">Pilih Model & Sablon</h4>
+                            </div>
+
+                            <!-- TOGGLE SWITCH TYPE -->
+                            <div class="flex bg-gray-100 p-1 rounded-lg self-start md:self-auto w-full md:w-auto">
+                                <button onclick="setOrderType('new')" id="btn-new" class="toggle-btn active flex-1 md:flex-none px-4 py-2 rounded-md text-xs font-bold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-star"></i> Order Baru
+                                </button>
+                                <button onclick="setOrderType('repeat')" id="btn-repeat" class="toggle-btn flex-1 md:flex-none px-4 py-2 rounded-md text-xs font-bold transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-rotate-right"></i> Repeat Order
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="p-6 space-y-6">
-                             <!-- Minimum Order -->
-                            <div class="border-b border-gray-100 pb-4">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <i class="fa-solid fa-cart-shopping text-primary"></i>
-                                    <span class="font-bold text-black">Minimum Order</span>
+                        <!-- Kategori Baju -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Jenis Pakaian</label>
+                            <div class="grid grid-cols-2 gap-3 md:gap-4">
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="category" value="Oblong" class="hidden form-radio" checked onchange="updateOptions()">
+                                    <div class="border-2 border-gray-200 rounded-xl p-3 md:p-4 text-center hover:border-gray-400 transition-all relative h-full flex flex-col justify-center items-center">
+                                        <i class="fa-solid fa-shirt text-2xl mb-2 text-gray-400 group-hover:text-black"></i>
+                                        <div class="font-bold text-sm">Oblong Kerah "O"</div>
+                                        <i class="fa-solid fa-check-circle text-primary absolute top-2 right-2 opacity-0 check-icon transition-opacity"></i>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="category" value="Reglan" class="hidden form-radio" onchange="updateOptions()">
+                                    <div class="border-2 border-gray-200 rounded-xl p-3 md:p-4 text-center hover:border-gray-400 transition-all relative h-full flex flex-col justify-center items-center">
+                                        <i class="fa-solid fa-vest text-2xl mb-2 text-gray-400 group-hover:text-black"></i>
+                                        <div class="font-bold text-sm">Reglan Kerah "O"</div>
+                                        <i class="fa-solid fa-check-circle text-primary absolute top-2 right-2 opacity-0 check-icon transition-opacity"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Tipe Sablon -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Tipe Printing</label>
+                            <div class="space-y-3" id="print-options">
+                                <!-- Options injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Opsi Setelan -->
+                         <div class="mt-6 pt-4 border-t border-dashed">
+                            <label class="inline-flex items-center cursor-pointer select-none">
+                                <input type="checkbox" id="is-setelan" class="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary" onchange="calculateTotal()">
+                                <span class="ml-3 font-bold text-gray-700 text-sm md:text-base">Pesan Sebagai Setelan (Baju + Celana)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 2. Detail Ukuran (GRID UPDATED FOR MOBILE) -->
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
+                        <div class="flex items-center gap-3 mb-6 border-b pb-4">
+                            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">2</div>
+                            <h4 class="text-xl font-bold text-black">Detail Jumlah & Ukuran</h4>
+                        </div>
+
+                        <div class="bg-yellow-50 border-l-4 border-primary p-4 mb-6 text-sm text-gray-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-2" id="size-info-box">
+                            <div>
+                                <p id="min-order-text">Masukkan jumlah di kolom bawah.</p>
+                                <p class="mt-1 font-bold text-xs text-red-600">*Size XXL keatas dikenakan biaya tambahan.</p>
+                            </div>
+                            <i class="fa-solid fa-ruler-combined text-2xl text-primary/50 hidden md:block"></i>
+                        </div>
+
+                        <!-- Grid optimized for mobile (3 cols) -->
+                        <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+                            <!-- Size Inputs -->
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1">S</label>
+                                <input type="number" min="0" data-size="S" class="size-input w-full border-2 border-gray-200 rounded-lg p-2 text-center focus:border-black outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1">M</label>
+                                <input type="number" min="0" data-size="M" class="size-input w-full border-2 border-gray-200 rounded-lg p-2 text-center focus:border-black outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1">L</label>
+                                <input type="number" min="0" data-size="L" class="size-input w-full border-2 border-gray-200 rounded-lg p-2 text-center focus:border-black outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1">XL</label>
+                                <input type="number" min="0" data-size="XL" class="size-input w-full border-2 border-gray-200 rounded-lg p-2 text-center focus:border-black outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1 text-red-600">XXL (+10rb)</label>
+                                <input type="number" min="0" data-size="XXL" class="size-input w-full border-2 border-red-100 rounded-lg p-2 text-center focus:border-red-500 outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-center mb-1 text-red-600">3XL (+10rb)</label>
+                                <input type="number" min="0" data-size="3XL" class="size-input w-full border-2 border-red-100 rounded-lg p-2 text-center focus:border-red-500 outline-none font-bold" placeholder="0" oninput="calculateTotal()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Data Pemesan -->
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
+                        <div class="flex items-center gap-3 mb-6 border-b pb-4">
+                            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">3</div>
+                            <h4 class="text-xl font-bold text-black">Data Pemesan</h4>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap / Tim</label>
+                                    <input type="text" id="customer-name" class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-primary outline-none" placeholder="Contoh: Budi (Team Garuda)">
                                 </div>
-                                <ul class="text-sm text-gray-600 space-y-1 list-disc pl-8">
-                                    <li>Full Printing: <strong>6 pcs</strong></li>
-                                    <li>Partial Print: <strong>12 pcs</strong></li>
-                                </ul>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-2">Catatan Tambahan (Opsional)</label>
+                                    <input type="text" id="customer-note" class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-primary outline-none" placeholder="Misal: Deadline tgl 20, Logo di kiri...">
+                                </div>
                             </div>
 
-                            <!-- Size Rules -->
-                            <div class="border-b border-gray-100 pb-4">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <i class="fa-solid fa-ruler text-primary"></i>
-                                    <span class="font-bold text-black">Size Chart</span>
+                            <!-- HIDDEN BANK FIELDS (Only for Repeat Order) -->
+                            <div id="bank-details-area" class="hidden bg-green-50 p-4 rounded-xl border border-green-200">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fa-solid fa-credit-card text-green-600"></i>
+                                    <h5 class="font-bold text-green-800 text-sm">Data Rekening (Repeat Order)</h5>
                                 </div>
-                                <div class="flex gap-2 mb-2 pl-8">
-                                    <span class="w-8 h-8 flex items-center justify-center bg-gray-100 text-xs font-bold rounded">S</span>
-                                    <span class="w-8 h-8 flex items-center justify-center bg-gray-100 text-xs font-bold rounded">M</span>
-                                    <span class="w-8 h-8 flex items-center justify-center bg-gray-100 text-xs font-bold rounded">L</span>
-                                    <span class="w-8 h-8 flex items-center justify-center bg-gray-100 text-xs font-bold rounded">XL</span>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-600 mb-1">Nomor Rekening</label>
+                                        <input type="number" id="bank-number" class="w-full border border-green-300 rounded-lg p-2 focus:border-green-600 outline-none text-sm" placeholder="Contoh: 1234567890">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-600 mb-1">Atas Nama</label>
+                                        <input type="text" id="bank-name" class="w-full border border-green-300 rounded-lg p-2 focus:border-green-600 outline-none text-sm" placeholder="Nama Pemilik Rekening">
+                                    </div>
                                 </div>
-                                <p class="text-sm text-gray-600 pl-8">Size XXL Charge: <span class="text-red-600 font-bold">+ Rp 10.000/pcs</span> (Berlaku kelipatan 3XL, dst)</p>
-                            </div>
-
-                            <!-- Additional Costs -->
-                            <div class="border-b border-gray-100 pb-4">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <i class="fa-solid fa-plus-circle text-primary"></i>
-                                    <span class="font-bold text-black">Biaya Tambahan</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-1 pl-8">
-                                    <li class="flex justify-between">
-                                        <span>Lengan Panjang</span>
-                                        <span class="font-bold">+ Rp 10.000</span>
-                                    </li>
-                                    <li class="flex justify-between">
-                                        <span>Lengan Panjang (Full Print)</span>
-                                        <span class="font-bold">+ Rp 25.000</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Discounts -->
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                                <h5 class="font-bold text-black mb-2 flex items-center gap-2"><i class="fa-solid fa-tags text-primary"></i> Diskon Spesial</h5>
-                                <ul class="text-sm space-y-1">
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
-                                        <span>> 60 pcs: <strong>Potongan Rp 10.000/pcs</strong></span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
-                                        <span>> 200 pcs: <strong>Potongan Rp 20.000/pcs</strong></span>
-                                    </li>
-                                </ul>
                             </div>
                             
-                            <!-- Payment Info -->
-                            <div class="text-xs text-gray-500 mt-2 flex justify-between">
-                                <span><i class="fa-solid fa-clock mr-1"></i> Produksi 7 Hari</span>
-                                <span><i class="fa-solid fa-wallet mr-1"></i> DP Min 50%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <!-- Custom Name & Number Toggle -->
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <label class="flex items-center cursor-pointer justify-between w-full" onclick="toggleCustomNames()">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-primary">
+                                            <i class="fa-solid fa-shirt"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-black text-sm">Tambah Nama & Nomor Punggung?</div>
+                                            <div class="text-xs text-gray-500">Klik untuk mengisi detail pemain</div>
+                                        </div>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="checkbox" id="use-custom-names" class="sr-only">
+                                        <div class="w-10 h-6 bg-gray-300 rounded-full shadow-inner transition-colors" id="toggle-bg"></div>
+                                        <div class="dot absolute w-4 h-4 bg-white rounded-full shadow -left-1 -top-1 transition transform translate-x-1 translate-y-2" id="toggle-dot"></div>
+                                    </div>
+                                </label>
 
-                <!-- Right: Price List (Tabs System) -->
-                <div class="lg:w-2/3" data-aos="fade-left">
-                    <h3 class="text-2xl font-bold mb-6 flex items-center">
-                        <i class="fa-solid fa-tag text-primary mr-3"></i> Daftar Harga
-                    </h3>
-                    
-                    <!-- Tabs Header -->
-                    <div class="flex mb-6 space-x-2">
-                        <button onclick="switchPriceTab('oblong')" id="btn-oblong" class="flex-1 py-3 px-4 rounded-lg font-bold border-2 transition-all duration-300 price-tab-active flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-shirt"></i> OBLONG KERAH "O"
-                        </button>
-                        <button onclick="switchPriceTab('reglan')" id="btn-reglan" class="flex-1 py-3 px-4 rounded-lg font-bold border-2 transition-all duration-300 price-tab-inactive flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-vest"></i> REGLAN KERAH "O"
-                        </button>
-                    </div>
-
-                    <!-- Price Content: Oblong -->
-                    <div id="price-oblong" class="space-y-4">
-                        <!-- Type #1 -->
-                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-black text-primary text-xs font-bold px-3 py-1 rounded-bl-lg">BEST SELLER</div>
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#1 Full Printing Sublime</h4>
-                            <p class="text-xs text-gray-400 mb-3">Seluruh bagian (Badan Depan, Belakang, Lengan) diprint.</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 95rb - 115rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center border border-primary/20">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 160rb - 180rb</span>
+                                <!-- Hidden Textarea -->
+                                <div id="custom-names-area" class="hidden mt-4 border-t border-gray-200 pt-4 transition-all">
+                                    <label class="block text-sm font-bold text-gray-700 mb-2">List Nama & Nomor</label>
+                                    <p class="text-xs text-gray-500 mb-2">Format: Nama - Nomor - Ukuran</p>
+                                    <textarea id="player-list" rows="5" class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-primary outline-none font-mono text-sm" placeholder="Contoh:
+1. Budi - #10 - Size L
+2. Andi - #07 - Size M
+3. Siti - #12 - Size S"></textarea>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Type #2 -->
-                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group">
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#2 Badan Full Print</h4>
-                            <p class="text-xs text-gray-400 mb-3">Badan Depan & Belakang Print. Lengan Tidak Print (Warna Kain Pabrik).</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 80rb - 100rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 130rb - 150rb</span>
-                                </div>
-                            </div>
-                        </div>
-
-                         <!-- Type #3 -->
-                         <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group">
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#3 Depan Print Only</h4>
-                            <p class="text-xs text-gray-400 mb-3">Hanya Badan Depan Print. Belakang & Lengan Tidak Print.</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 70rb - 90rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 120rb - 140rb</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Price Content: Reglan -->
-                    <div id="price-reglan" class="space-y-4 hidden">
-                         <!-- Type #1 -->
-                         <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-primary text-black text-xs font-bold px-3 py-1 rounded-bl-lg">PREMIUM</div>
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#1 Full Printing Sublime</h4>
-                            <p class="text-xs text-gray-400 mb-3">Seluruh bagian diprint dengan pola Reglan.</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 110rb - 130rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center border border-primary/20">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 170rb - 190rb</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Type #2 -->
-                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group">
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#2 Badan Full Print</h4>
-                            <p class="text-xs text-gray-400 mb-3">Badan Depan & Belakang Print. Lengan Tidak Print.</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 95rb - 115rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 95rb - 115rb</span>
-                                </div>
-                            </div>
-                        </div>
-
-                         <!-- Type #3 -->
-                         <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:border-black transition-all group">
-                            <h4 class="text-lg font-bold text-black mb-1 group-hover:text-primary transition-colors">#3 Depan Print Only</h4>
-                            <p class="text-xs text-gray-400 mb-3">Hanya Badan Depan Print. Belakang & Lengan Tidak Print.</p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">ATASAN</span>
-                                    <span class="block font-bold text-lg text-black">Rp 85rb - 105rb</span>
-                                </div>
-                                <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                    <span class="block text-xs text-gray-500">STELAN (+Celana)</span>
-                                    <span class="block font-bold text-lg text-black">Rp 120rb - 140rb</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CTA Button -->
-                     <div class="pt-6">
-                        <a href="https://wa.me/6282299488829" target="_blank" class="block w-full bg-black text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-primary/50">
-                            HUBUNGI VIA WHATSAPP <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <p class="text-xs text-center text-gray-400 mt-3">Gratis Konsultasi Desain & Penyesuaian Budget</p>
                     </div>
 
                 </div>
+
+                <!-- Right Column: SUMMARY & ACTION -->
+                <div class="lg:col-span-1" data-aos="fade-left">
+                    <div class="sticky top-28 space-y-6">
+                        
+                        <!-- Order Summary Card -->
+                        <div class="bg-black text-white rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-10 opacity-10 text-primary">
+                                <i class="fa-solid fa-receipt text-9xl transform -rotate-12"></i>
+                            </div>
+
+                            <h4 class="text-primary font-bold tracking-widest uppercase text-sm mb-6 border-b border-gray-800 pb-2">Ringkasan Pesanan</h4>
+                            
+                            <div class="space-y-4 text-sm mb-8 relative z-10">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Status Order:</span>
+                                    <span class="font-bold text-right" id="summary-status">ORDER BARU</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Jenis:</span>
+                                    <span class="font-bold text-right" id="summary-type">-</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Tipe Print:</span>
+                                    <span class="font-bold text-right" id="summary-print">-</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Total Pcs:</span>
+                                    <span class="font-bold text-primary text-lg" id="summary-qty">0 Pcs</span>
+                                </div>
+                                <div class="border-t border-gray-800 pt-2 mt-2">
+                                     <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Estimasi Total:</span>
+                                        <div class="text-right">
+                                            <span class="block font-bold text-2xl text-primary" id="summary-price">Rp 0</span>
+                                            <span class="text-[10px] text-gray-500">*Harga fix setelah konsultasi desain</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Error Message -->
+                            <div id="error-msg" class="hidden bg-red-500/20 border border-red-500 text-red-200 text-xs p-3 rounded mb-4">
+                                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Minimal order belum terpenuhi.
+                            </div>
+
+                            <button onclick="sendToWhatsapp()" class="w-full bg-primary hover:bg-primaryDark text-black font-extrabold py-4 rounded-xl transition-all shadow-lg hover:shadow-primary/50 flex items-center justify-center gap-2 group">
+                                <span>KIRIM VIA WHATSAPP</span>
+                                <i class="fa-brands fa-whatsapp text-xl group-hover:rotate-12 transition-transform"></i>
+                            </button>
+                        </div>
+
+                        <!-- Rule Info (Simplified) -->
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm">
+                            <h5 class="font-bold text-black mb-3 flex items-center"><i class="fa-solid fa-circle-info text-primary mr-2"></i> Info Penting</h5>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex gap-2"><i class="fa-solid fa-check text-xs mt-1"></i> <span>Min Order: <strong>6 pcs</strong> (Full Print), <strong>12 pcs</strong> (Partial).</span></li>
+                                <li class="flex gap-2"><i class="fa-solid fa-check text-xs mt-1"></i> <span><strong>Repeat Order:</strong> Bebas jumlah (Tanpa Min. Order).</span></li>
+                                <li class="flex gap-2"><i class="fa-solid fa-check text-xs mt-1"></i> <span>Desain akan dikonfirmasi ulang via WA.</span></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Location Section (Visual & Functional) -->
+    <!-- Location Section -->
     <section id="location" class="py-0 relative">
         <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
-            
-            <!-- Left: Storefront Image -->
-            <div class="relative h-96 lg:h-full group overflow-hidden">
+            <div class="relative h-64 lg:h-full group overflow-hidden">
                 <img src="gambar-depan-toko1.jpg" alt="Depan Toko" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                     <div class="bg-white/90 backdrop-blur px-8 py-4 rounded-lg shadow-2xl transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
@@ -714,17 +621,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Right: Map Card Info -->
-            <div class="bg-black text-white p-12 flex flex-col justify-center">
+            <div class="bg-black text-white p-8 md:p-12 flex flex-col justify-center">
                 <div data-aos="fade-up">
                     <h2 class="text-primary font-bold tracking-widest uppercase mb-2">Visit Us</h2>
-                    <h3 class="text-4xl font-bold mb-6">Lokasi Studio</h3>
-                    
-                    <p class="text-gray-400 mb-8 leading-relaxed text-lg">
-                        Datang langsung untuk melihat koleksi bahan dan konsultasi ukuran dengan tim penjahit kami. Tempat nyaman dan parkir luas.
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6">Lokasi Studio</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed text-base md:text-lg">
+                        Datang langsung untuk melihat koleksi bahan dan konsultasi ukuran dengan tim penjahit kami.
                     </p>
-
+                    <!-- Address Info ... -->
                     <div class="space-y-4 mb-10">
                         <div class="flex items-start">
                             <i class="fa-solid fa-location-dot text-primary mt-1 mr-4 text-xl"></i>
@@ -740,34 +644,7 @@
                                 <p class="text-gray-400">0822-9948-8829</p>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-clock text-primary mt-1 mr-4 text-xl"></i>
-                            <div class="w-full max-w-xs">
-                                <h4 class="font-bold text-white mb-2">Jam Operasional</h4>
-                                <!-- Detailed Schedule -->
-                                <div class="text-sm text-gray-400 space-y-1">
-                                    <div class="flex justify-between border-b border-gray-800 pb-1 border-dashed">
-                                        <span>Senin</span>
-                                        <span class="text-white">09.00 - 18.00</span>
-                                    </div>
-                                    <div class="flex justify-between border-b border-gray-800 pb-1 border-dashed">
-                                        <span>Selasa - Jumat</span>
-                                        <span class="text-white">09.00 - 21.00</span>
-                                    </div>
-                                    <div class="flex justify-between border-b border-gray-800 pb-1 border-dashed">
-                                        <span>Sabtu</span>
-                                        <span class="text-white">09.00 - 18.00</span>
-                                    </div>
-                                    <div class="flex justify-between pt-1">
-                                        <span class="text-red-500 font-bold">Minggu</span>
-                                        <span class="text-red-500 font-bold">Tutup</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-                    <!-- Map Link Button -->
                     <a href="https://maps.app.goo.gl/akj7rx5AEDyG1vgZ8" target="_blank" class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-primary transition-colors duration-300">
                         <img src="https://cdn-icons-png.flaticon.com/512/2991/2991231.png" alt="Gmaps" class="w-6 h-6">
                         Buka Google Maps
@@ -790,7 +667,7 @@
                 <a href="#" class="hover:text-black transition-colors"><i class="fa-brands fa-facebook text-2xl"></i></a>
             </div>
             <p class="text-gray-400 text-sm">
-                &copy; 2025 Vertical Colony. All rights reserved. <br> Designed and create with precision and style. <br> Demo By Barry
+                &copy; 2025 Vertical Colony. All rights reserved. <br> Demo By Barry
             </p>
         </div>
     </footer>
@@ -818,43 +695,24 @@
             }
         });
 
-        // Mobile Menu Logic
+        // Mobile Menu Logic (Enhanced)
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link'); // Select links inside menu
 
+        // Toggle Menu
         btn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
         });
 
-        // Price Tab Logic
-        function switchPriceTab(type) {
-            const btnOblong = document.getElementById('btn-oblong');
-            const btnReglan = document.getElementById('btn-reglan');
-            const contentOblong = document.getElementById('price-oblong');
-            const contentReglan = document.getElementById('price-reglan');
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
 
-            if (type === 'oblong') {
-                contentOblong.classList.remove('hidden');
-                contentReglan.classList.add('hidden');
-                
-                btnOblong.classList.add('price-tab-active');
-                btnOblong.classList.remove('price-tab-inactive');
-                
-                btnReglan.classList.add('price-tab-inactive');
-                btnReglan.classList.remove('price-tab-active');
-            } else {
-                contentOblong.classList.add('hidden');
-                contentReglan.classList.remove('hidden');
-                
-                btnReglan.classList.add('price-tab-active');
-                btnReglan.classList.remove('price-tab-inactive');
-                
-                btnOblong.classList.add('price-tab-inactive');
-                btnOblong.classList.remove('price-tab-active');
-            }
-        }
-
-        // Tambahkan fungsi untuk inisialisasi kontrol video
+        // Setup Video (Sama seperti sebelumnya)
         function setupVideoControls(videoId, controlId, iconId, muteBtnId) {
             const video = document.getElementById(videoId);
             const controlOverlay = document.getElementById(controlId);
@@ -863,7 +721,6 @@
 
             if (!video || !controlOverlay || !muteBtn) return;
 
-            // 1. Play/Pause Toggle
             controlOverlay.addEventListener('click', () => {
                 if (video.paused) {
                     video.play();
@@ -872,36 +729,26 @@
                 }
             });
 
-            // 2. Icon Toggling (Mengganti ikon)
             video.addEventListener('play', () => {
                 icon.classList.remove('fa-play');
                 icon.classList.add('fa-pause');
-                icon.classList.add('opacity-0'); // Sembunyikan saat sedang play
+                icon.classList.add('opacity-0'); 
             });
 
             video.addEventListener('pause', () => {
                 icon.classList.remove('fa-pause');
                 icon.classList.add('fa-play');
-                icon.classList.remove('opacity-0'); // Tampilkan saat sedang pause
+                icon.classList.remove('opacity-0'); 
             });
             
-            // Tampilkan ikon pause/play saat hover di area video (UX)
             controlOverlay.addEventListener('mouseenter', () => {
                 if (video.paused) {
                     icon.classList.remove('opacity-0');
                 }
             });
-            controlOverlay.addEventListener('mouseleave', () => {
-                if (video.paused) {
-                    // Biarkan ikon tetap terlihat saat pause, hanya sembunyikan saat play
-                }
-            });
 
-            // 3. Mute/Unmute Toggle
             muteBtn.addEventListener('click', () => {
                 video.muted = !video.muted;
-                
-                // Ganti ikon mute
                 const muteIcon = muteBtn.querySelector('i');
                 if (video.muted) {
                     muteIcon.classList.remove('fa-volume-high');
@@ -912,17 +759,227 @@
                 }
             });
 
-            // Coba putar video secara terpisah untuk mengatasi masalah autoplay
             video.play().catch(error => {
                 console.warn("Autoplay was prevented:", error);
             });
         }
 
-        // Inisialisasi kedua video setelah AOS.init()
+        // ==========================================
+        // ORDER FORM LOGIC 
+        // ==========================================
+
+        let isRepeatOrder = false;
+
+        const products = {
+            'Oblong': [
+                { id: '1', name: '#1 Full Printing Sublime', desc: 'Badan Depan, Belakang, Lengan Full Print', min: 6, priceAtasan: 115000, priceSetelan: 180000 },
+                { id: '2', name: '#2 Badan Full Print', desc: 'Badan Depan & Belakang Print. Lengan Polos', min: 12, priceAtasan: 100000, priceSetelan: 150000 },
+                { id: '3', name: '#3 Depan Print Only', desc: 'Hanya Depan Print. Belakang & Lengan Polos', min: 12, priceAtasan: 90000, priceSetelan: 140000 }
+            ],
+            'Reglan': [
+                { id: '1', name: '#1 Full Printing Sublime', desc: 'Pola Reglan Full Print', min: 6, priceAtasan: 130000, priceSetelan: 190000 },
+                { id: '2', name: '#2 Badan Full Print', desc: 'Badan Print, Lengan Polos', min: 12, priceAtasan: 115000, priceSetelan: 115000 }, 
+                { id: '3', name: '#3 Depan Print Only', desc: 'Hanya Depan Print', min: 12, priceAtasan: 105000, priceSetelan: 140000 }
+            ]
+        };
+
+        function setOrderType(type) {
+            const btnNew = document.getElementById('btn-new');
+            const btnRepeat = document.getElementById('btn-repeat');
+            const bankArea = document.getElementById('bank-details-area');
+            const statusSummary = document.getElementById('summary-status');
+
+            if (type === 'new') {
+                isRepeatOrder = false;
+                btnNew.classList.add('active');
+                btnRepeat.classList.remove('active');
+                bankArea.classList.add('hidden');
+                statusSummary.innerText = "ORDER BARU";
+                statusSummary.classList.remove('text-green-600');
+            } else {
+                isRepeatOrder = true;
+                btnNew.classList.remove('active');
+                btnRepeat.classList.add('active');
+                bankArea.classList.remove('hidden');
+                statusSummary.innerText = "REPEAT ORDER";
+                statusSummary.classList.add('text-green-600');
+            }
+            updateOptions();
+        }
+
+        function updateOptions() {
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const container = document.getElementById('print-options');
+            
+            const infoText = document.getElementById('min-order-text');
+            if(isRepeatOrder) {
+                infoText.innerHTML = "<span class='font-bold text-green-600'>Mode Repeat Order:</span> Bebas Jumlah (Tanpa Minimum).";
+                document.getElementById('size-info-box').classList.remove('bg-yellow-50', 'border-primary');
+                document.getElementById('size-info-box').classList.add('bg-green-50', 'border-green-500');
+            } else {
+                infoText.innerHTML = "Masukkan jumlah di kolom bawah.";
+                document.getElementById('size-info-box').classList.add('bg-yellow-50', 'border-primary');
+                document.getElementById('size-info-box').classList.remove('bg-green-50', 'border-green-500');
+            }
+
+            container.innerHTML = '';
+
+            products[category].forEach((prod, index) => {
+                const isChecked = index === 0 ? 'checked' : '';
+                let minText = `Min. Order: ${prod.min} pcs`;
+                if(isRepeatOrder) minText = `<span class="text-green-600">Bebas (Repeat Order)</span>`;
+
+                const html = `
+                    <label class="cursor-pointer group block">
+                        <input type="radio" name="printType" value="${index}" class="hidden form-radio" ${isChecked} onchange="calculateTotal()">
+                        <div class="border-2 border-gray-100 rounded-xl p-4 hover:border-black transition-all flex justify-between items-center">
+                            <div>
+                                <div class="font-bold text-black">${prod.name}</div>
+                                <div class="text-xs text-gray-500">${prod.desc}</div>
+                                <div class="text-xs font-bold text-primary mt-1">${minText}</div>
+                            </div>
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center check-icon opacity-0">
+                                <div class="w-2.5 h-2.5 rounded-full bg-black"></div>
+                            </div>
+                        </div>
+                    </label>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+            calculateTotal();
+        }
+
+        function toggleCustomNames() {
+            const checkbox = document.getElementById('use-custom-names');
+            const area = document.getElementById('custom-names-area');
+            const bg = document.getElementById('toggle-bg');
+            const dot = document.getElementById('toggle-dot');
+            
+            setTimeout(() => {
+                if (checkbox.checked) {
+                    area.classList.remove('hidden');
+                    bg.classList.remove('bg-gray-300');
+                    bg.classList.add('bg-primary');
+                    dot.classList.add('translate-x-6');
+                    dot.classList.remove('translate-x-1');
+                } else {
+                    area.classList.add('hidden');
+                    bg.classList.add('bg-gray-300');
+                    bg.classList.remove('bg-primary');
+                    dot.classList.remove('translate-x-6');
+                    dot.classList.add('translate-x-1');
+                }
+            }, 50); 
+        }
+
+        function calculateTotal() {
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const typeIndex = document.querySelector('input[name="printType"]:checked')?.value || 0;
+            const product = products[category][typeIndex];
+            const isSetelan = document.getElementById('is-setelan').checked;
+
+            let totalQty = 0;
+            let extraCharge = 0;
+
+            document.querySelectorAll('.size-input').forEach(input => {
+                const val = parseInt(input.value) || 0;
+                if (val > 0) {
+                    totalQty += val;
+                    const size = input.dataset.size;
+                    if (size === 'XXL' || size === '3XL') {
+                        extraCharge += (val * 10000);
+                    }
+                }
+            });
+
+            let basePrice = isSetelan ? product.priceSetelan : product.priceAtasan;
+            if (totalQty > 60) basePrice -= 10000;
+            
+            const estimatedTotal = (basePrice * totalQty) + extraCharge;
+
+            document.getElementById('summary-type').innerText = `${category} - ${isSetelan ? 'Setelan' : 'Atasan'}`;
+            document.getElementById('summary-print').innerText = product.name;
+            document.getElementById('summary-qty').innerText = `${totalQty} Pcs`;
+            document.getElementById('summary-price').innerText = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(estimatedTotal);
+
+            const errorMsg = document.getElementById('error-msg');
+            if (!isRepeatOrder && totalQty > 0 && totalQty < product.min) {
+                errorMsg.classList.remove('hidden');
+                errorMsg.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Order Baru: Min. <strong>${product.min} pcs</strong>.`;
+            } else {
+                errorMsg.classList.add('hidden');
+            }
+        }
+
+        function sendToWhatsapp() {
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const typeIndex = document.querySelector('input[name="printType"]:checked')?.value || 0;
+            const product = products[category][typeIndex];
+            const isSetelan = document.getElementById('is-setelan').checked;
+            const name = document.getElementById('customer-name').value.trim();
+            const note = document.getElementById('customer-note').value.trim();
+            const useCustomNames = document.getElementById('use-custom-names').checked;
+            const playerList = document.getElementById('player-list').value.trim();
+            const bankNumber = document.getElementById('bank-number').value.trim();
+            const bankName = document.getElementById('bank-name').value.trim();
+            
+            let sizeLines = "";
+            let totalQty = 0;
+            document.querySelectorAll('.size-input').forEach(input => {
+                const val = parseInt(input.value) || 0;
+                if (val > 0) {
+                    totalQty += val;
+                    sizeLines += `   - ${input.dataset.size}: ${val} pcs\n`;
+                }
+            });
+
+            if (totalQty === 0) { alert("Mohon masukkan jumlah ukuran baju."); return; }
+            if (name === "") { alert("Mohon isi Nama Pemesan."); document.getElementById('customer-name').focus(); return; }
+            if (!isRepeatOrder && totalQty < product.min) { alert(`Untuk Order Baru, minimal order adalah ${product.min} pcs.`); return; }
+            if (isRepeatOrder) {
+                if (bankNumber === "" || bankName === "") { alert("Untuk Repeat Order, mohon lengkapi Data Rekening."); return; }
+            }
+
+            const estimasiHarga = document.getElementById('summary-price').innerText;
+            
+            // UPDATE NOMOR TUJUAN DISINI
+            const phone = "6281219008934"; 
+            
+            let statusText = isRepeatOrder ? "REPEAT ORDER (PELANGGAN LAMA)" : "ORDER BARU";
+            let message = `*Halo Vertical Colony, Saya ingin order:*\n`;
+            message += `🚨 *STATUS: ${statusText}*\n\n`;
+            message += `*1. PILIHAN MODEL & SABLON*\n`;
+            message += `👕 Jenis: ${category} (${isSetelan ? 'Setelan' : 'Atasan'})\n`;
+            message += `🎨 Tipe: ${product.name}\n\n`; 
+            message += `*2. DETAIL JUMLAH & UKURAN*\n`;
+            message += `📦 Total Qty: ${totalQty} Pcs\n`;
+            message += `📏 Rincian Size:\n${sizeLines}`;
+            
+            if (useCustomNames && playerList) {
+                message += `📝 List Pemain (Nama/No):\n${playerList}\n`;
+            }
+            message += `💰 Estimasi Biaya: ${estimasiHarga}\n\n`;
+            message += `*3. DATA PEMESAN*\n`;
+            message += `👤 Nama: ${name}\n`;
+            if (note) message += `📝 Catatan: ${note}\n`;
+            if (isRepeatOrder) {
+                message += `\n💳 *DATA REKENING (Repeat Order)*\n`;
+                message += `🏦 No. Rek: ${bankNumber}\n`;
+                message += `👤 A.N: ${bankName}\n`;
+            }
+            message += `\n-----------------------------\n`;
+            message += `Mohon info ketersediaan dan total fixnya. Terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             setupVideoControls('video-proses-3', 'control-video-proses-3', 'icon-proses-3', 'mute-proses-3');
             setupVideoControls('video-proses-4', 'control-video-proses-4', 'icon-proses-4', 'mute-proses-4');
+            updateOptions();
         });
+
     </script>
 </body>
 </html>
