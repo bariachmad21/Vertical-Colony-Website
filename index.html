@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Colony | Demo By Bari</title>
+    <title>Vertical Colony | Demo By Barry</title>
     
     <!-- Google Fonts: Plus Jakarta Sans (Modern & Geometric) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -212,28 +212,55 @@
                             <div class="absolute bottom-2 left-2 text-white text-xs font-bold bg-black/50 px-2 py-1">FOTO DESAIN</div>
                         </div>
                         
-                        <!-- Video Proses 1 (Playable) -->
+                        <!-- Video Proses 1 (Playable - MENJAHIT) -->
                         <div class="rounded-lg overflow-hidden h-64 shadow-lg bg-black relative">
-                            <video controls controlsList="nofullscreen nodownload" disablePictureInPicture class="w-full h-full object-cover rounded-lg video-portrait">
+                            <!-- Video Element -->
+                            <video autoplay loop muted playsinline id="video-proses-3" class="w-full h-full object-cover rounded-lg video-portrait">
                                 <source src="proses3.mp4" type="video/mp4">
                                 Browser Anda tidak mendukung video tag.
                             </video>
-                            <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none">PROSES MENJAHIT</div>
+                            
+                            <!-- Overlay Control (Play/Pause) -->
+                            <div id="control-video-proses-3" class="video-overlay absolute inset-0 flex items-center justify-center cursor-pointer group z-10">
+                                <i id="icon-proses-3" class="fa-solid fa-pause text-white text-3xl opacity-0 transition-opacity duration-300"></i>
+                            </div>
+
+                            <!-- Mute Button -->
+                            <button id="mute-proses-3" class="absolute bottom-4 left-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-black/80 transition-colors">
+                                <i class="fa-solid fa-volume-xmark"></i>
+                            </button>
+
+                            <!-- Label -->
+                            <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">PROSES MENJAHIT</div>
                         </div>
                     </div>
+                    
                     <div class="space-y-4">
-                        <!-- Video Proses 2 (Playable) -->
+                        <!-- Video Proses 2 (Playable - PRINTING) -->
                         <div class="rounded-lg overflow-hidden h-64 shadow-lg bg-black relative">
-                            <video controls controlsList="nofullscreen nodownload" disablePictureInPicture class="w-full h-full object-cover rounded-lg video-portrait">
-                                <source src="proses-jersey1-nemtas.mp4" type="video/mp4">
+                            <!-- Video Element -->
+                            <video autoplay loop muted playsinline id="video-proses-4" class="w-full h-full object-cover rounded-lg video-portrait">
+                                <source src="proses 4.mp4" type="video/mp4">
                                 Browser Anda tidak mendukung video tag.
                             </video>
-                             <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none">PROSES PRINTING</div>
+
+                            <!-- Overlay Control (Play/Pause) -->
+                            <div id="control-video-proses-4" class="video-overlay absolute inset-0 flex items-center justify-center cursor-pointer group z-10">
+                                <i id="icon-proses-4" class="fa-solid fa-pause text-white text-3xl opacity-0 transition-opacity duration-300"></i>
+                            </div>
+
+                            <!-- Mute Button -->
+                            <button id="mute-proses-4" class="absolute bottom-4 left-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-black/80 transition-colors">
+                                <i class="fa-solid fa-volume-xmark"></i>
+                            </button>
+
+                            <!-- Label -->
+                            <div class="absolute top-2 right-2 text-white text-xs font-bold bg-primary text-black px-2 py-1 rounded pointer-events-none z-10">PROSES PRINTING</div>
                         </div>
                         
                         <!-- Static Image (Foto Finishing) -->
                         <div class="image-hover-zoom rounded-lg overflow-hidden h-48 group relative cursor-pointer shadow-lg">
-                            <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49e?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover" alt="Finishing">
+                            <img src="baju2.jpg" class="w-full h-full object-cover" alt="Finishing">
                              <div class="absolute bottom-2 left-2 text-white text-xs font-bold bg-black/50 px-2 py-1">FOTO FINISHING</div>
                         </div>
                     </div>
@@ -253,71 +280,72 @@
                 <h3 class="text-3xl md:text-4xl font-bold text-black">Material & Spesifikasi</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Left: Materials List -->
-                <div data-aos="fade-right">
-                    <h4 class="text-2xl font-bold mb-6 flex items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
+                <!-- Left: Materials Catalog Card -->
+                <div data-aos="fade-right" class="flex flex-col justify-center">
+                    <h4 class="text-2xl font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-layer-group text-primary mr-3"></i> Pilihan Kain Dry-Fit
                     </h4>
-                    <p class="text-gray-500 mb-6">Kami menyediakan berbagai jenis bahan premium yang nyaman, menyerap keringat, dan cocok untuk olahraga maupun casual.</p>
+                    <p class="text-gray-500 mb-8 leading-relaxed">
+                        Kami menyediakan berbagai jenis bahan premium yang nyaman, menyerap keringat, dan memiliki tekstur unik sesuai kebutuhan olahraga Anda.
+                    </p>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <span class="font-bold text-gray-800 text-sm">Serena</span>
+                    <!-- REFINED IMAGE CARD (Frame Effect) -->
+                    <div class="bg-white p-3 rounded-[2rem] shadow-2xl border border-gray-100 transform transition-all duration-500 hover:-translate-y-2 group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-[1.5rem]">
+                            <img src="bahan.jpg" alt="Katalog Bahan Jersey Dry-Fit" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
+                            
+                            <!-- Minimalist Overlay Tag -->
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold tracking-widest shadow-sm">
+                                • KATALOG 2025
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <!-- Updated Spelling -->
-                            <span class="font-bold text-gray-800 text-sm">Benzeman</span>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <span class="font-bold text-gray-800 text-sm">Milano</span>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <span class="font-bold text-gray-800 text-sm">Brazil</span>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <span class="font-bold text-gray-800 text-sm">Wafel</span>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs"><i class="fa-solid fa-check"></i></div>
-                            <span class="font-bold text-gray-800 text-sm">Embos</span>
+                        <!-- Micro Detail Footer -->
+                        <div class="mt-4 px-2 mb-2 flex justify-between items-center opacity-60">
+                            <span class="text-xs font-mono text-gray-500"><i class="fa-solid fa-check-circle text-primary mr-1"></i> 6 TEXTURE TYPES</span>
+                            <i class="fa-solid fa-arrow-right text-xs -rotate-45 group-hover:rotate-0 transition-transform duration-300"></i>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Machine Specs -->
-                <div class="bg-black text-white rounded-2xl p-8 relative overflow-hidden h-fit" data-aos="fade-left">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                <!-- Right: Machine Specs Card -->
+                <div class="bg-black text-white rounded-[2rem] p-10 relative overflow-hidden shadow-2xl flex flex-col justify-center h-full" data-aos="fade-left">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 transform rotate-12">
                         <i class="fa-solid fa-print text-9xl"></i>
                     </div>
                     
-                    <h4 class="text-2xl font-bold mb-6 text-primary">Teknologi Printing</h4>
-                    
-                    <div class="space-y-6">
-                        <div class="flex gap-4 items-start">
-                            <div class="mt-1"><i class="fa-solid fa-microchip text-primary"></i></div>
-                            <div>
-                                <h5 class="font-bold text-lg">Epson SureColor F6330</h5>
-                                <p class="text-gray-400 text-sm">Mesin printer sublimasi kelas dunia untuk hasil cetak presisi.</p>
+                    <div class="relative z-10">
+                        <h4 class="text-2xl font-bold mb-8 text-primary border-b border-gray-800 pb-4 inline-block">Teknologi Printing</h4>
+                        
+                        <div class="space-y-8">
+                            <div class="flex gap-5 items-start group">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
+                                    <i class="fa-solid fa-microchip text-primary text-sm"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-white mb-1">Epson SureColor F6330</h5>
+                                    <p class="text-gray-400 text-sm leading-relaxed">Mesin printer sublimasi kelas dunia menjamin detail presisi dan gradasi warna halus.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-4 items-start">
-                            <div class="mt-1"><i class="fa-solid fa-fill-drip text-primary"></i></div>
-                            <div>
-                                <h5 class="font-bold text-lg">Tinta Original Epson</h5>
-                                <p class="text-gray-400 text-sm">Warna cerah, tidak mudah luntur, dan aman di kulit (Oeko-Tex Standard).</p>
+
+                            <div class="flex gap-5 items-start group">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
+                                    <i class="fa-solid fa-fill-drip text-primary text-sm"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-white mb-1">Tinta Original Epson</h5>
+                                    <p class="text-gray-400 text-sm leading-relaxed">Warna tajam (Vivid), tahan cuci berkali-kali, dan bersertifikat Oeko-Tex (Aman di kulit).</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-4 items-start">
-                            <div class="mt-1"><i class="fa-solid fa-shirt text-primary"></i></div>
-                            <div>
-                                <h5 class="font-bold text-lg">Full Printing Sublime</h5>
-                                <p class="text-gray-400 text-sm">Bagian badan depan full print. Bagian belakang/tangan bisa custom printing atau kain polos.</p>
+
+                            <div class="flex gap-5 items-start group">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center border border-gray-800 group-hover:border-primary transition-colors flex-shrink-0">
+                                    <i class="fa-solid fa-shirt text-primary text-sm"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-white mb-1">Full Printing Area</h5>
+                                    <p class="text-gray-400 text-sm leading-relaxed">Bebas kreasikan desain pada seluruh permukaan kain (Depan, Belakang, Lengan).</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -343,7 +371,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- Item 1 -->
                 <div class="group relative overflow-hidden h-80 lg:col-span-2 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Model Yellow" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="full print.jpg" alt="Model Yellow" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <h4 class="text-white text-xl font-bold">Jersey Custom</h4>
@@ -354,7 +382,7 @@
                 
                 <!-- Item 2 -->
                 <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1529139574466-a302c275af73?auto=format&fit=crop&w=500&q=80" alt="Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="jersey2.jpg" alt="Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="fa-solid fa-magnifying-glass text-white text-2xl"></i>
                     </div>
@@ -362,20 +390,18 @@
 
                 <!-- Item 3 (Video Look) -->
                 <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=80" alt="Video Result" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                         <div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
-                            <i class="fa-solid fa-play text-black text-sm"></i>
-                         </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4">
-                        <p class="text-white text-sm font-medium">Showcase Video</p>
+                    <img src="jersey.jpg" alt="Jersey Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">Jersey Detail</h4>
+                            <p class="text-yellow-400 text-sm">Close Up View</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Item 4 -->
                 <div class="group relative overflow-hidden h-80 cursor-pointer" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://images.unsplash.com/photo-1503342217505-b0815a046baf?auto=format&fit=crop&w=500&q=80" alt="T-Shirt" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="baju2.jpg" alt="T-Shirt" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <h4 class="text-white text-lg font-bold">Custom Streetwear</h4>
@@ -386,7 +412,7 @@
 
                 <!-- Item 5 -->
                 <div class="group relative overflow-hidden h-80 lg:col-span-3 cursor-pointer" data-aos="fade-up" data-aos-delay="500">
-                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=80" alt="Group Uniform" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="testimoni.jpg" alt="Group Uniform" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <h4 class="text-white text-xl font-bold">Team Uniforms</h4>
@@ -764,7 +790,7 @@
                 <a href="#" class="hover:text-black transition-colors"><i class="fa-brands fa-facebook text-2xl"></i></a>
             </div>
             <p class="text-gray-400 text-sm">
-                &copy; 2024 Modern Wear Studio. All rights reserved. <br> Designed with precision and style.
+                &copy; 2025 Vertical Colony. All rights reserved. <br> Designed and create with precision and style. <br> Demo By Barry
             </p>
         </div>
     </footer>
@@ -827,6 +853,76 @@
                 btnOblong.classList.remove('price-tab-active');
             }
         }
+
+        // Tambahkan fungsi untuk inisialisasi kontrol video
+        function setupVideoControls(videoId, controlId, iconId, muteBtnId) {
+            const video = document.getElementById(videoId);
+            const controlOverlay = document.getElementById(controlId);
+            const icon = document.getElementById(iconId);
+            const muteBtn = document.getElementById(muteBtnId);
+
+            if (!video || !controlOverlay || !muteBtn) return;
+
+            // 1. Play/Pause Toggle
+            controlOverlay.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+
+            // 2. Icon Toggling (Mengganti ikon)
+            video.addEventListener('play', () => {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                icon.classList.add('opacity-0'); // Sembunyikan saat sedang play
+            });
+
+            video.addEventListener('pause', () => {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                icon.classList.remove('opacity-0'); // Tampilkan saat sedang pause
+            });
+            
+            // Tampilkan ikon pause/play saat hover di area video (UX)
+            controlOverlay.addEventListener('mouseenter', () => {
+                if (video.paused) {
+                    icon.classList.remove('opacity-0');
+                }
+            });
+            controlOverlay.addEventListener('mouseleave', () => {
+                if (video.paused) {
+                    // Biarkan ikon tetap terlihat saat pause, hanya sembunyikan saat play
+                }
+            });
+
+            // 3. Mute/Unmute Toggle
+            muteBtn.addEventListener('click', () => {
+                video.muted = !video.muted;
+                
+                // Ganti ikon mute
+                const muteIcon = muteBtn.querySelector('i');
+                if (video.muted) {
+                    muteIcon.classList.remove('fa-volume-high');
+                    muteIcon.classList.add('fa-volume-xmark');
+                } else {
+                    muteIcon.classList.remove('fa-volume-xmark');
+                    muteIcon.classList.add('fa-volume-high');
+                }
+            });
+
+            // Coba putar video secara terpisah untuk mengatasi masalah autoplay
+            video.play().catch(error => {
+                console.warn("Autoplay was prevented:", error);
+            });
+        }
+
+        // Inisialisasi kedua video setelah AOS.init()
+        document.addEventListener('DOMContentLoaded', () => {
+            setupVideoControls('video-proses-3', 'control-video-proses-3', 'icon-proses-3', 'mute-proses-3');
+            setupVideoControls('video-proses-4', 'control-video-proses-4', 'icon-proses-4', 'mute-proses-4');
+        });
     </script>
 </body>
 </html>
